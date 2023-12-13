@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="weather-side" id="left-side">
+            <div class="pic-gradient"></div>
+            <div class="today-info">
+                <% const months=["January", "February" , "March" , "April" , "May" , "June" , "July" , "August"
+                    , "September" , "October" , "November" , "December" ]; %>
+                    <% const days=["Sunday", "Monday" , "Tuesday" , "Wednesday" , "Thursday" , "Friday" , "Saturday" ];
+                        %>
+                        <h2>
+                            <%= days[new Date().getDay()] %>
+                        </h2>
+                        <span>
+                            <%= new Date().getDate() %>
+                                <%= months[new Date().getMonth()] %>
+                                    <%= new Date().getFullYear(); %>
+                        </span>
+                        <div>
+                            <i class='bx bx-current-location'></i>
+                            <span>
+                                <%= locals.location ? location : "" %>
+                            </span>
+                        </div>
+            </div>
+            <div class="today-weather">
+                <i class="bx bx-<%= locals.icon ? icon : `sun` %>"></i>
+
+                <h1 class="weather-temp">
+                    <%= locals.temp ? temp : "0" %>°C
+                </h1>
+                <h3>
+                    <%= locals.weather ? weather : "" %>
+                </h3>
+            </div>
+        </div>
+
+        <div class="info-side" id="right-side">
+            <div class="day-info">
+                <div>
+                    <span class="title">AIR PRESSURE</span>
+                    <span class="value">
+                        <%= locals.pressure ? pressure : "" %> hPa
+                    </span>
+                </div>
+                <div>
+                    <span class="title">HUMIDITY</span>
+                    <span class="value">
+                        <%= locals.humidity ? humidity : "" %> %
+                    </span>
+                </div>
+                <div>
+                    <span class="title">WIND SPEED</span>
+                    <span class="value">
+                        <%= locals.wind ? wind : "" %> km/h
+                    </span>
+                </div>
+            </div>
+
+            <ul class="days-list">
+                <li>
+                    <i class="bx bx-<%= locals.icon1 ? icon1 : `sun` %>"></i>
+                    <span>
+                        <%= days[(new Date().getDay() + 1) % days.length].substring(0, 3) %>
+                    </span>
+                    <span class="day-temp">
+                        <%= locals.temp1 ? temp1 : `` %> °C
+                    </span>
+                </li>
+                <li>
+                    <i class="bx bx-<%= locals.icon2 ? icon2 : `sun` %>"></i>
+                    <span>
+                        <%= days[(new Date().getDay() + 2) % days.length].substring(0, 3) %>
+                    </span>
+                    <span class="day-temp">
+                        <%= locals.temp2 ? temp2 : `` %> °C
+                    </span>
+                </li>
+                <li>
+                    <i class="bx bx-<%= locals.icon3 ? icon3 : `sun` %>"></i>
+                    <span>
+                        <%= days[(new Date().getDay() + 3) % days.length].substring(0, 3) %>
+                    </span>
+                    <span class="day-temp">
+                        <%= locals.temp3 ? temp3 : `` %> °C
+                    </span>
+                </li>
+                <li>
+                    <i class="bx bx-<%= locals.icon4 ? icon4 : `sun` %>"></i>
+                    <span>
+                        <%= days[(new Date().getDay() + 4) % days.length].substring(0, 3) %>
+                    </span>
+                    <span class="day-temp">
+                        <%= locals.temp4 ? temp4 : `` %> °C
+                    </span>
+                </li>
+            </ul>
+
+            <div class="btn-container">
+                <button class="loc-button">Search Location</button>
+            </div>
+
+        </div>
+
+        <div class="search-section hide">
+            <form action="/location" method="post">
+                <input type="text" id="search-bar" name="city" placeholder="Search Location" autocomplete="off">
+                <button type="submit"><i class='bx bx-search'></i></button>
+            </form>
+            <% if(locals.location) { %>
+                <ul class="locations">
+                    <li>
+                        <span>
+                            <%= location %>
+                        </span>
+                    </li>
+                </ul>
+                <% } %>
+
+                    <button><i class='bx bx-arrow-back'></i></button>
+                    <div class="error">
+                        <img src="/images/404.png" alt="404">
+                    </div>
+        </div>
+
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/javascripts/script.js"></script>
+</body>
+
+</html>
